@@ -31,7 +31,7 @@
             <!-- <label><input type="checkbox" id="ckbRefresh" value="first_checkbox"> Refresh every 10 seconds</label> -->
             <div class="page__toggle">
                 <label class="toggle">
-                  <input class="toggle__input" type="checkbox" checked>
+                  <input id="toggle__input" class="toggle__input" type="checkbox" checked>
                   <span class="toggle__label">
                     <span class="toggle__text">Refresh every 15 seconds </span>
                   </span>
@@ -56,8 +56,14 @@
             <span id="actualPrice"></span>
             <label id="bearBull">0 - 0</label>
             <img id="imgBearBull" src="https://www.bluechipexterminating.com/wp-content/uploads/2020/02/loading-gif-png-5.gif" height="50px" width="50px"></img>
-            <span id="biggestOrder">59</span>
-            <span id="mostCommonOrder">26</span>
+            <label>Biggest bid order (by volume)</label>
+            <span id="biggestBidOrder"> - </span>
+            <label>Biggest ask order (by volume)</label>
+            <span id="biggestAskOrder"> - </span>
+            <label>Most common bid order</label>
+            <span id="mostCommonBidOrder"> - </span>
+            <label>Most common ask order</label>
+            <span id="mostCommonAskOrder"> - </span>
             <span>Total volume</span>
             <span id="totalVolumeBid">26</span>
             <span id="totalVolumeAsk">26</span>

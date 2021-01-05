@@ -1,4 +1,5 @@
 let chart:any = {};
+//let biggestOrder:any;
 
 const truncate = (number:number, digits:number) : number => {
     //Truncate function: trunca "number" segun la cantidad de "digits"
@@ -72,7 +73,7 @@ const analyze_list = (list:any[], decimals:number) : any[] => {
     for (let i:any = 0; i < list.length; i++) {
         const element:string = list[i];
         if (list.length > 0) { //ya tiene registros, puedo iterar
-            for (let e:any = 0; e < output.length; e++) { //p,c,o
+            for (let e:any = 0; e < output.length; e++) { //price,quantity acumulated,orders
                 const sub_element:any[] = output[e];
                 exist = false
                 let item = truncate(Number(element[0]),decimals);
@@ -254,4 +255,16 @@ const selectOption = (option:string) => {
         optionToSelect?.setAttribute('selected','true');
         //console.log('selecting: '+option);
     }
+}
+
+const biggest_order = (list:any[]) : any => {
+    /*Extraigo la orden mas grande por volumen */
+    let order:any = [0,0];
+    for (let i = 0; i < list.length; i++) {
+        const element = list[i];
+        if (element[1] > order[1]){ //Si es valido y es mayor, lo agrego
+            order = element;
+        }
+    }
+    return order;
 }

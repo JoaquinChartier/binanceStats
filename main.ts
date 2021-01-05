@@ -1,9 +1,10 @@
-let orders:boolean = true;
-let selectedOrders:number = 1;
-let decimals:number = 0;
-let stringPair:string = '';
-let res:any;
-let price:any;
+let orders:boolean = true; //Boolean que almacena el valor del switch
+let selectedOrders:number = 1; //Number que almacena la cantidad del counter de orders
+let decimals:number = 0; //Number que almacena la cantidad del counter de decimals
+let stringPair:string = ''; //String que almacena
+let res:any; //Var global que almacena la respuesta del order book
+let price:any; //Var global que almacena la respuesta del price
+let refresh:boolean = true;
 
 async function render_all(pair:string, orders:boolean, selectedOrders:number, decimals:number, redraw:boolean, requery:boolean){
     //Funcion main que renderiza todo la pantalla    
@@ -16,16 +17,27 @@ async function render_all(pair:string, orders:boolean, selectedOrders:number, de
         res = await get_order_book(pair); //Busco el orderbook
         price = await get_coin_price(pair); //Traigo precio actual
     }
-    
-    let asks = analyze_list(res.asks, decimals); //Analizo la lista y parseo los datos
+
+    //Biggest order
+    let bAskO = biggest_order(res.asks);
+    $('#biggestAskOrder').html(`${Number(bAskO[1])} at $${Number(bAskO[0])}`);
+    let bBidO = biggest_order(res.bids);
+    $('#biggestBidOrder').html(`${Number(bBidO[1])} at $${Number(bBidO[0])}`);
+    //Analizo la lista y parseo los datos
+    let asks = analyze_list(res.asks, decimals); 
     let bids = analyze_list(res.bids, decimals);
-    $('#actualPrice').html(`Actual price: $${price}`); //Asigno el precio
-    //Formateo y dibujo el chart
+    $('#actualPrice').html(`Actual price: $${price}`);
+    //Formateo
     let labels = concat_labels(asks, bids);
     let column:number = (orders == true) ? 2 : 1; //Segun el parametro seteo el valor de la columna
     let acumulated_asks = asks.map(function(a) {return a[column];});
     let acumulated_bids = bids.map(function(a) {return a[column];});
-
+    //Most common order
+    let cAskO = order_by(asks,2);
+    $('#mostCommonAskOrder').html(`${cAskO[0][2]} times at $${cAskO[0][0]}`);
+    let cBidO = order_by(bids,2);
+    $('#mostCommonBidOrder').html(`${cBidO[0][2]} times at $${cBidO[0][0]}`);
+    //Dibujo el chart
     draw_chart(labels, acumulated_asks, acumulated_bids, price, pair, redraw);
     //indicar de bear_bull
     bear_bull(price, selectedOrders, bids, asks);
@@ -51,6 +63,12 @@ window.onload = async function() {
         //console.log('orders', orders);
         $('#lblOrders').html((orders) ? 'Orders' : 'Volume');
         render_all(stringPair,orders,selectedOrders,decimals,true,false);
+    });
+
+    document.getElementById('toggle__input')?.addEventListener('change', function() {
+        /*CONTROLA EL CAMBIO DEL CHECKBOX DEL TIMER DE REFRESH*/
+        let checkbox:any = this;
+        refresh = checkbox.checked;
     });
 
     $('#ckbSelectedOrders .minus')?.on('click',function() {
@@ -84,4 +102,12 @@ window.onload = async function() {
         render_all(stringPair,orders,selectedOrders,decimals,true,false);
         //console.log(decimals);
     });
+
+    /*TIMER PARA REFRESCAR CADA 15 SEG */
+    let timer = setInterval(refresh_event, 15000);
+    function refresh_event() {
+        if (refresh){
+            render_all(stringPair,orders,selectedOrders,decimals,true,true);
+        }
+    }
 }
