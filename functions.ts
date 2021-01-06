@@ -13,7 +13,7 @@ const truncate = (number:number, digits:number) : number => {
 
 const basic_request = (fullURL:string) : Promise<any> => {
     //Basic request
-    console.log(fullURL);
+    //console.log(fullURL);
     return new Promise((resolve, reject) => {
         let settings = {
             "url": fullURL,
@@ -39,7 +39,7 @@ const get_order_book = (symb1:string) : Promise<any> => {
         basic_request(url)
         .then(data => {
             //console.log(data);
-            console.log(`asks count: ${data.asks.length}, bids count: ${data.bids.length}`);
+            //console.log(`asks count: ${data.asks.length}, bids count: ${data.bids.length}`);
             resolve(data);
         })
         .catch(err => reject(err))
@@ -100,7 +100,7 @@ const print_all = (list:any[]) => {
     //Itero e imprimo todos los resultados
     for (let index = 0; index < list.length; index++) {
         const element = list[index];
-        console.log(`Price: ${element[0]}, quantity: ${element[1]}, unique orders: ${element[2]}`)
+        //console.log(`Price: ${element[0]}, quantity: ${element[1]}, unique orders: ${element[2]}`)
     }
 }
 
@@ -243,7 +243,7 @@ const bear_bull = (price:number, avg_magic_number:number, bid:any[], ask:any[]) 
     avg_ask = func(ask, 'ask')
     per_bid = percentage(avg_bid, price)
     per_ask = percentage(avg_ask, price)
-    console.log(`${avg_bid}, ${avg_ask}, ${per_bid}, ${per_ask}`);
+    //console.log(`${avg_bid}, ${avg_ask}, ${per_bid}, ${per_ask}`);
     $('#bearBull').text((Math.abs(per_bid) < Math.abs(per_ask)) ? `${per_bid} > ${per_ask}` : `${per_bid} < ${per_ask}`);
     $('#imgBearBull').attr('src', (Math.abs(per_bid) < Math.abs(per_ask)) ? 'css/bull.png' : 'css/bear.png');
 }

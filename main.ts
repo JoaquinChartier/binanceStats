@@ -50,7 +50,7 @@ window.onload = async function() {
     document.getElementById('selectPair')?.addEventListener('change', function() {
         /*CONTROLA EL CAMBIO DEL SELECTOR DE PAR*/
         let selectedPair:any = this;
-        console.log('You selected: ', selectedPair.value);
+        //console.log('You selected: ', selectedPair.value);
         stringPair = selectedPair.value;
         render_all(selectedPair.value,orders,selectedOrders,decimals,true,true);
     });
