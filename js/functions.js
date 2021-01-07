@@ -28,7 +28,7 @@ const basic_request = (fullURL) => {
 const get_order_book = (symb1) => {
     return new Promise((resolve, reject) => {
         symb1 = symb1.toUpperCase();
-        let url = 'https://api.binance.com/api/v3/depth?symbol=' + symb1 + '&limit=100';
+        let url = 'https://api.binance.com/api/v3/depth?symbol=' + symb1 + '&limit=500';
         basic_request(url)
             .then(data => {
             resolve(data);
@@ -189,7 +189,7 @@ const bear_bull = (price, avg_magic_number, bid, ask) => {
     avg_ask = func(ask, 'ask');
     per_bid = percentage(avg_bid, price);
     per_ask = percentage(avg_ask, price);
-    $('#bearBull').text((Math.abs(per_bid) < Math.abs(per_ask)) ? `${per_bid} > ${per_ask}` : `${per_bid} < ${per_ask}`);
+    $('#bearBull').text((Math.abs(per_bid) < Math.abs(per_ask)) ? `B: ${per_bid}% > A: ${per_ask}%` : `B: ${per_bid}% < A: ${per_ask}%`);
     $('#imgBearBull').attr('src', (Math.abs(per_bid) < Math.abs(per_ask)) ? 'css/bull.png' : 'css/bear.png');
 };
 const selectOption = (option) => {

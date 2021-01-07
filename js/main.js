@@ -6,6 +6,7 @@ let stringPair = '';
 let res;
 let price;
 let refresh = true;
+console.info(`If you are looking for the code, take a look at: https://github.com/JoaquinChartier/binanceStats`);
 async function render_all(pair, orders, selectedOrders, decimals, redraw, requery) {
     if (requery) {
         res = await get_order_book(pair);

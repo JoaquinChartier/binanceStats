@@ -6,6 +6,8 @@ let res:any; //Var global que almacena la respuesta del order book
 let price:any; //Var global que almacena la respuesta del price
 let refresh:boolean = true;
 
+console.info(`If you are looking for the code, take a look at: https://github.com/JoaquinChartier/binanceStats`);
+
 async function render_all(pair:string, orders:boolean, selectedOrders:number, decimals:number, redraw:boolean, requery:boolean){
     //Funcion main que renderiza todo la pantalla    
 

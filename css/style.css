@@ -9,6 +9,14 @@
   margin: 4px;
 }
 
+.main-title {
+  margin: 6px;
+}
+
+.main-title a{
+  color: #0563af;
+}
+
 .lateral-container {
   display: flex;
   align-items:center;
@@ -32,6 +40,7 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #fff;
   font-size: 13px;
+  text-align: center;
 }
 
 label {
@@ -103,11 +112,11 @@ div.number input{
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: black; /*#2196F3*/
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px black; /*#2196F3*/
 }
 
 input:checked + .slider:before {
